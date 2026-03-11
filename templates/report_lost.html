@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Report Lost Item</title>
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+
+<div class="page-title">
+LostLink – Report Lost Item
+</div>
+
+<div class="form-container">
+
+<div class="form-box">
+
+<h2>Report Lost Item</h2>
+
+<form method="post" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<table class="form-table">
+
+<tr>
+<td>Item Name</td>
+<td>{{ form.item_name }}</td>
+</tr>
+
+<tr>
+<td>Description</td>
+<td>{{ form.description }}</td>
+</tr>
+
+<tr>
+<td>Location Lost</td>
+<td>{{ form.location_lost }}</td>
+</tr>
+
+<tr>
+<td>Date Lost</td>
+<td>{{ form.date_lost }}</td>
+</tr>
+
+<tr>
+<td>Upload Image</td>
+<td>{{ form.image }}</td>
+</tr>
+
+</table>
+
+<button class="submit-btn">Submit Report</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
