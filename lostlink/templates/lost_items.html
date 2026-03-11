@@ -1,66 +1,47 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
+{% block content %}
 
-<head>
+<h1>Lost Items</h1>
 
-<title>Report Lost Item</title>
+<div class="grid">
 
-<link rel="stylesheet" href="{% static 'style.css' %}">
+{% for item in items %}
 
-</head>
+<div class="card">
 
-<body>
+{% if item.image %}
+<img src="{{ item.image.url }}">
+{% endif %}
 
-<div class="navbar">
-LostLink – Report Lost Item
+<div class="card-body">
+
+<div class="card-title">
+{{ item.item_name }}
 </div>
 
-
-<div class="form-wrapper">
-
-<div class="form-card">
-
-<h2>Report Lost Item</h2>
-
-<form method="post" enctype="multipart/form-data">
-
-{% csrf_token %}
-
-<div class="form-group">
-<label>Item Name</label>
-{{ form.item_name }}
+<div class="card-text">
+{{ item.description }}
 </div>
 
-<div class="form-group">
-<label>Description</label>
-{{ form.description }}
+<div class="card-text">
+Location: {{ item.location_lost }}
 </div>
 
-<div class="form-group">
-<label>Location Lost</label>
-{{ form.location_lost }}
+<div class="card-text">
+Date: {{ item.date_lost }}
 </div>
-
-<div class="form-group">
-<label>Date Lost</label>
-{{ form.date_lost }}
-</div>
-
-<div class="form-group">
-<label>Upload Image</label>
-{{ form.image }}
-</div>
-
-<button class="btn">Submit</button>
-
-</form>
 
 </div>
 
 </div>
 
-</body>
+{% empty %}
 
-</html>
+<p>No lost items found.</p>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

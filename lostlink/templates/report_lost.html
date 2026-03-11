@@ -1,68 +1,119 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
 
 <head>
+    <title>Report Lost Item</title>
 
-<title>Report Lost Item</title>
+    <style>
+        body {
+            background: #0b1a34;
+            font-family: Arial;
+            color: white;
+            margin: 0;
+        }
 
-<link rel="stylesheet" href="{% static 'style.css' %}">
+        .header {
+            padding: 25px 40px;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .card {
+            background: #243247;
+            padding: 40px;
+            border-radius: 12px;
+            width: 420px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #5b5de6, #6d7cff);
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="page-title">
-LostLink – Report Lost Item
-</div>
+    <div class="header">LostLink – Report Lost Item</div>
 
-<div class="form-container">
+    <div class="container">
 
-<div class="form-box">
+        <div class="card">
 
-<h2>Report Lost Item</h2>
+            <h2>Report Lost Item</h2>
 
-<form method="post" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data">
 
-{% csrf_token %}
+                {% csrf_token %}
 
-<table class="form-table">
+                <div class="form-group">
+                    <label>Item Name</label>
+                    {{ form.item_name }}
+                </div>
 
-<tr>
-<td>Item Name</td>
-<td>{{ form.item_name }}</td>
-</tr>
+                <div class="form-group">
+                    <label>Description</label>
+                    {{ form.description }}
+                </div>
 
-<tr>
-<td>Description</td>
-<td>{{ form.description }}</td>
-</tr>
+                <div class="form-group">
+                    <label>Location Lost</label>
+                    {{ form.location_lost }}
+                </div>
 
-<tr>
-<td>Location Lost</td>
-<td>{{ form.location_lost }}</td>
-</tr>
+                <div class="form-group">
+                    <label>Date Lost</label>
+                    {{ form.date_lost }}
+                </div>
 
-<tr>
-<td>Date Lost</td>
-<td>{{ form.date_lost }}</td>
-</tr>
+                <div class="form-group">
+                    <label>Upload Image</label>
+                    {{ form.image }}
+                </div>
 
-<tr>
-<td>Upload Image</td>
-<td>{{ form.image }}</td>
-</tr>
+                <button type="submit">Submit</button>
 
-</table>
+            </form>
 
-<button class="submit-btn">Submit Report</button>
+        </div>
 
-</form>
-
-</div>
-
-</div>
+    </div>
 
 </body>
 

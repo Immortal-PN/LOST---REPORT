@@ -1,161 +1,87 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<title>LostLink</title>
-
-<link rel="stylesheet" href="{% static 'style.css' %}">
-
-</head>
-
-<body>
-
-
-<!-- NAVBAR -->
-
-<div class="navbar">
-
-<div class="logo">
-LostLink
-</div>
-
-<div class="nav-links">
-
-<a href="/">Home</a>
-<a href="/lost/">Lost Items</a>
-<a href="/found/">Found Items</a>
-<a class="nav-btn" href="/report-lost/">Report Lost</a>
-<a class="nav-btn" href="/report-found/">Report Found</a>
-
-</div>
-
-</div>
-
-
-
-<!-- HERO SECTION -->
+{% block content %}
 
 <div class="hero">
 
-<h1>Lost & Found Made Simple</h1>
+    <h1>Lost & Found Made Simple</h1>
 
-<p>
-A modern platform to report lost items, upload images,
-and help people reconnect with their belongings.
-</p>
+    <p>
+        A modern platform to report lost items, upload images,
+        and reconnect people with their belongings.
+    </p>
 
-<div class="hero-buttons">
-
-<a class="btn" href="/report-lost/">Report Lost Item</a>
-
-<a class="btn" href="/report-found/">Report Found Item</a>
+    <a href="{% url 'report_lost' %}" class="btn btn-primary">
+        <a href="{% url 'report_found' %}" class="btn btn-secondary">
 
 </div>
 
-</div>
-
-
-
-<!-- FEATURES -->
-
-<div class="container">
 
 <h2 class="section-title">Platform Features</h2>
 
-<div class="features">
+<div class="grid">
 
+    <div class="card">
+        <h3>Report Lost Items</h3>
+        <p>Submit lost item details with description, location and images.</p>
+    </div>
 
-<div class="feature-card">
+    <div class="card">
+        <h3>Upload Images</h3>
+        <p>Upload photos to help identify and recover lost belongings.</p>
+    </div>
 
-<h3>Report Lost Items</h3>
-
-<p>
-Quickly submit information about lost belongings
-including description, location, and images.
-</p>
-
-</div>
-
-
-<div class="feature-card">
-
-<h3>Upload Images</h3>
-
-<p>
-Add photos of items to increase the chances
-of identifying and recovering them.
-</p>
+    <div class="card">
+        <h3>Search Items</h3>
+        <p>Search the database of lost and found items instantly.</p>
+    </div>
 
 </div>
 
-
-<div class="feature-card">
-
-<h3>Search Items</h3>
-
-<p>
-Search the database of lost and found
-items instantly using keywords.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-
-<!-- QUICK ACTIONS -->
-
-<div class="container">
 
 <h2 class="section-title">Quick Access</h2>
 
-<div class="cards">
+<div class="grid">
 
+    <div class="card">
+        <h3>Lost Items</h3>
+        <p>Browse all reported lost items.</p>
+        <a href="{% url 'lost_items' %}" class="btn btn-secondary">
+    </div>
+
+    <div class="card">
+        <h3>Found Items</h3>
+        <p>Browse all reported found items.</p>
+        <a href="{% url 'found_items' %}" class="btn btn-secondary">
+    </div>
+
+</div>
+
+
+<h2 class="section-title">Rewards</h2>
 
 <div class="card">
 
-<h2>Lost Items</h2>
-
-<p>Browse all reported lost items.</p>
-
-<a class="btn" href="/lost/">View Lost Items</a>
-
-</div>
-
-
-<div class="card">
-
-<h2>Found Items</h2>
-
-<p>Browse all reported found items.</p>
-
-<a class="btn" href="/found/">View Found Items</a>
+    <p>
+        Users can optionally declare a reward when reporting a lost item.
+        This motivates finders to return valuable belongings faster.
+    </p>
 
 </div>
 
 
-</div>
+<h2 class="section-title">Contact & Helpline</h2>
+
+<div class="contact-box">
+
+    <p><b>Email Support:</b> support@lostlink.com</p>
+    <p><b>Helpline:</b> +91 98765 43210</p>
 
 </div>
 
-
-
-<!-- FOOTER -->
 
 <div class="footer">
-
-<p>LostLink © 2026 | Lost & Found Management System</p>
-
+    LostLink © 2026 | Lost & Found Management System
 </div>
 
-
-</body>
-
-</html>
+{% endblock %}
