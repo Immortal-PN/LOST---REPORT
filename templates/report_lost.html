@@ -1,69 +1,43 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
+{% block content %}
 
-<head>
-
-<title>Report Lost Item</title>
-
-<link rel="stylesheet" href="{% static 'style.css' %}">
-
-</head>
-
-<body>
-
-<div class="page-title">
-LostLink – Report Lost Item
-</div>
+<h1 class="page-title">Report Lost Item</h1>
 
 <div class="form-container">
 
-<div class="form-box">
-
-<h2>Report Lost Item</h2>
-
-<form method="post" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
 
 {% csrf_token %}
 
-<table class="form-table">
+<div class="form-grid">
 
-<tr>
-<td>Item Name</td>
-<td>{{ form.item_name }}</td>
-</tr>
+<label>Item Name</label>
+<input type="text" name="item_name" required>
 
-<tr>
-<td>Description</td>
-<td>{{ form.description }}</td>
-</tr>
+<label>Description</label>
+<textarea name="description" rows="4"></textarea>
 
-<tr>
-<td>Location Lost</td>
-<td>{{ form.location_lost }}</td>
-</tr>
+<label>Location Lost</label>
+<input type="text" name="location_lost">
 
-<tr>
-<td>Date Lost</td>
-<td>{{ form.date_lost }}</td>
-</tr>
+<label>Date Lost</label>
+<input type="date" name="date_lost">
 
-<tr>
-<td>Upload Image</td>
-<td>{{ form.image }}</td>
-</tr>
+<label>Reward</label>
+<input type="number" name="reward">
 
-</table>
+<label>Upload Image</label>
+<input type="file" name="image" id="imageInput">
 
-<button class="submit-btn">Submit Report</button>
+</div>
+
+<div class="form-button">
+<button class="btn">Submit Report</button>
+</div>
 
 </form>
 
 </div>
 
-</div>
-
-</body>
-
-</html>
+{% endblock %}

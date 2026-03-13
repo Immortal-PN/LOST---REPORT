@@ -1,66 +1,37 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
+{% block content %}
 
-<head>
+<h1>Lost Items</h1>
 
-<title>Report Lost Item</title>
+<div class="grid">
 
-<link rel="stylesheet" href="{% static 'style.css' %}">
+{% for item in items %}
 
-</head>
+<div class="card">
 
-<body>
+{% if item.image %}
+<img src="{{ item.image.url }}">
+{% endif %}
 
-<div class="navbar">
-LostLink – Report Lost Item
-</div>
+<h3>{{ item.item_name }}</h3>
 
+<p>{{ item.description }}</p>
 
-<div class="form-wrapper">
+<p><strong>Location:</strong> {{ item.location_lost }}</p>
 
-<div class="form-card">
-
-<h2>Report Lost Item</h2>
-
-<form method="post" enctype="multipart/form-data">
-
-{% csrf_token %}
-
-<div class="form-group">
-<label>Item Name</label>
-{{ form.item_name }}
-</div>
-
-<div class="form-group">
-<label>Description</label>
-{{ form.description }}
-</div>
-
-<div class="form-group">
-<label>Location Lost</label>
-{{ form.location_lost }}
-</div>
-
-<div class="form-group">
-<label>Date Lost</label>
-{{ form.date_lost }}
-</div>
-
-<div class="form-group">
-<label>Upload Image</label>
-{{ form.image }}
-</div>
-
-<button class="btn">Submit</button>
-
-</form>
+{% if item.reward %}
+<p><strong>Reward:</strong> ₹{{ item.reward }}</p>
+{% endif %}
 
 </div>
 
+{% empty %}
+
+<p>No lost items reported yet.</p>
+
+{% endfor %}
+
 </div>
 
-</body>
-
-</html>
+{% endblock %}
