@@ -2,38 +2,64 @@
 
 {% block content %}
 
-<h1 class="page-title">Report Found Item</h1>
+<div class="form-page">
 
-<div class="form-container">
+<div class="form-card">
+
+<h2 class="form-title">Report Found Item</h2>
 
 <form method="POST" enctype="multipart/form-data">
 
 {% csrf_token %}
 
-<div class="form-grid">
+<div class="form-row">
 
-<label>Item Name</label>
-<input type="text" name="item_name" required>
+<div class="form-field">
+<label>Title</label>
+{{ form.title }}
+</div>
 
+<div class="form-field">
+<label>Category</label>
+{{ form.category }}
+</div>
+
+</div>
+
+
+<div class="form-field">
 <label>Description</label>
-<textarea name="description" rows="4"></textarea>
+{{ form.description }}
+</div>
 
-<label>Location Found</label>
-<input type="text" name="location_found">
 
+<div class="form-row">
+
+<div class="form-field">
+<label>Location</label>
+{{ form.location }}
+</div>
+
+<div class="form-field">
 <label>Date Found</label>
-<input type="date" name="date_found">
-
-<label>Upload Image</label>
-<input type="file" name="image" id="imageInput">
+{{ form.date_found }}
+</div>
 
 </div>
 
-<div class="form-button">
-<button class="btn">Submit</button>
+
+<div class="form-field">
+<label>Image</label>
+{{ form.image }}
 </div>
 
+
+<button type="submit" class="submit-btn">
+Submit Found Item
+</button>
 </form>
+
+</div>
 
 </div>
 

@@ -2,41 +2,74 @@
 
 {% block content %}
 
-<h1 class="page-title">Report Lost Item</h1>
+<div class="form-page">
 
-<div class="form-container">
+<div class="form-card">
+
+<h2 class="form-title">Report Lost Item</h2>
 
 <form method="POST" enctype="multipart/form-data">
 
 {% csrf_token %}
 
-<div class="form-grid">
+<div class="form-row">
 
-<label>Item Name</label>
-<input type="text" name="item_name" required>
+<div class="form-field">
+<label>Title</label>
+{{ form.title }}
+</div>
 
+<div class="form-field">
+<label>Category</label>
+{{ form.category }}
+</div>
+
+</div>
+
+
+<div class="form-field">
 <label>Description</label>
-<textarea name="description" rows="4"></textarea>
+{{ form.description }}
+</div>
 
-<label>Location Lost</label>
-<input type="text" name="location_lost">
 
+<div class="form-row">
+
+<div class="form-field">
+<label>Location</label>
+{{ form.location }}
+</div>
+
+<div class="form-field">
 <label>Date Lost</label>
-<input type="date" name="date_lost">
-
-<label>Reward</label>
-<input type="number" name="reward">
-
-<label>Upload Image</label>
-<input type="file" name="image" id="imageInput">
+{{ form.date_lost }}
+</div>
 
 </div>
 
-<div class="form-button">
-<button class="btn">Submit Report</button>
+
+<div class="form-row">
+
+<div class="form-field">
+<label>Image</label>
+{{ form.image }}
 </div>
+
+<div class="form-field">
+<label>Proof Document</label>
+{{ form.proof_document }}
+</div>
+
+</div>
+
+
+<button type="submit" class="submit-btn">
+Submit Lost Item
+</button>
 
 </form>
+
+</div>
 
 </div>
 

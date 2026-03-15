@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-page">
+
+<div class="form-card">
+
+<h2 class="form-title">Create Account</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<div class="form-row">
+
+<div class="form-field">
+<label>Username</label>
+{{ form.username }}
+</div>
+
+<div class="form-field">
+<label>Email</label>
+<input type="email" name="email" class="form-control" required>
+</div>
+
+</div>
+
+
+<div class="form-row">
+
+<div class="form-field">
+<label>Password</label>
+{{ form.password1 }}
+</div>
+
+<div class="form-field">
+<label>Confirm Password</label>
+{{ form.password2 }}
+</div>
+
+</div>
+
+
+<button type="submit" class="submit-btn">
+Create Account
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}

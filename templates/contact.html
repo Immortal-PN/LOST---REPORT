@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="text-center">
+
+<h2>Contact {{receiver.username}}</h2>
+
+<form method="POST" class="mt-4">
+
+{% csrf_token %}
+
+<textarea name="message" class="form-control" rows="4" required></textarea>
+
+<br>
+
+<button class="btn btn-dark">
+Send Message
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}

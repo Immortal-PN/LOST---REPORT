@@ -2,14 +2,177 @@
 
 {% block content %}
 
-<h1>Find What Was Lost</h1>
+<section class="hero text-center">
 
-<p>
-LostLink helps people reconnect with their lost belongings.
+<div class="hero-content">
+
+<h1 class="hero-title">LostLink</h1>
+
+<p class="hero-subtitle">
+Reconnect people with their lost belongings.
 </p>
 
-<a href="{% url 'report_lost' %}" class="btn">Report Lost Item</a>
+<form method="GET" class="hero-search">
 
-<a href="{% url 'report_found' %}" class="btn">Report Found Item</a>
+<input 
+type="text" 
+name="q" 
+placeholder="Search lost or found items..."
+class="search-input"
+/>
+
+<button type="submit" class="search-btn">
+Search
+</button>
+
+</form>
+
+<div class="hero-buttons">
+
+<a href="/report-lost/" class="btn hero-btn-primary">
+Report Lost
+</a>
+
+<a href="/report-found/" class="btn hero-btn-primary">
+Report Found
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="stats-section">
+
+<div class="container">
+
+<div class="row text-center">
+
+<div class="col-md-4">
+
+<h2 class="counter" data-target="{{lost_count}}">0</h2>
+
+<p>Lost Items Reported</p>
+
+</div>
+
+<div class="col-md-4">
+
+<h2 class="counter" data-target="{{found_count}}">0</h2>
+
+<p>Found Items Reported</p>
+
+</div>
+
+<div class="col-md-4">
+
+<h2 class="counter" data-target="{{user_count}}">0</h2>
+
+<p>Community Users</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="section-title">
+
+<h2>Recent Lost Items</h2>
+
+</section>
+
+<div class="row">
+
+{% for item in lost_items %}
+
+<div class="col-md-4">
+
+<div class="card item-card">
+
+{% if item.image %}
+<img src="{{ item.image.url }}" class="card-img-top">
+{% endif %}
+
+<div class="card-body text-center">
+
+<h5>{{ item.title }}</h5>
+
+<p class="item-location">{{ item.location }}</p>
+
+<p class="item-user">User: {{ item.user.username }}</p>
+
+<a href="/contact/{{ item.user.id }}/" class="btn btn-dark btn-sm">
+Contact
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<section class="section-title">
+
+<h2>Recent Found Items</h2>
+
+</section>
+
+<div class="row">
+
+{% for item in found_items %}
+
+<div class="col-md-4">
+
+<div class="card item-card">
+
+{% if item.image %}
+<img src="{{ item.image.url }}" class="card-img-top">
+{% endif %}
+
+<div class="card-body text-center">
+
+<h5>{{ item.title }}</h5>
+
+<p class="item-location">{{ item.location }}</p>
+
+<p class="item-user">User: {{ item.user.username }}</p>
+
+<a href="/contact/{{ item.user.id }}/" class="btn btn-dark btn-sm">
+Contact
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
+
+
+
+{% block footer %}
+
+<footer class="home-footer">
+
+Internship Project — LOST & LINK
+
+</footer>
 
 {% endblock %}

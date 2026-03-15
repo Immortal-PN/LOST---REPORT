@@ -2,29 +2,31 @@
 
 {% block content %}
 
-<h1>Found Items</h1>
+<h2>Found Items</h2>
 
-<div class="grid">
+<div class="row">
 
 {% for item in items %}
 
-<div class="card">
+<div class="col-md-4">
+
+<div class="card mb-3">
 
 {% if item.image %}
-<img src="{{ item.image.url }}">
+<img src="{{ item.image.url }}" class="card-img-top">
 {% endif %}
 
-<h3>{{ item.item_name }}</h3>
+<div class="card-body">
 
-<p>{{ item.description }}</p>
+<h5>{{ item.title }}</h5>
 
-<p><strong>Location:</strong> {{ item.location_found }}</p>
+<p>{{ item.location }}</p>
 
 </div>
 
-{% empty %}
+</div>
 
-<p>No found items yet.</p>
+</div>
 
 {% endfor %}
 

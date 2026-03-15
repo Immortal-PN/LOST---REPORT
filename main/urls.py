@@ -1,16 +1,26 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
 
-    path("", views.home, name="home"),
+    # HOME
+    path('', views.home, name='home'),
 
-    path("lost-items/", views.lost_items, name="lost_items"),
+    # ITEMS
+    path('lost/', views.lost_items, name='lost_items'),
+    path('found/', views.found_items, name='found_items'),
 
-    path("found-items/", views.found_items, name="found_items"),
+    # REPORT
+    path('report-lost/', views.report_lost, name='report_lost'),
+    path('report-found/', views.report_found, name='report_found'),
 
-    path("report-lost/", views.report_lost, name="report_lost"),
+    # USER
+    path('register/', views.register, name='register'),
+    path('profile/', views.profile, name='profile'),
 
-    path("report-found/", views.report_found, name="report_found"),
+    # MESSAGES
+    path('inbox/', views.inbox, name='inbox'),
+    path('contact/<int:user_id>/', views.contact_user, name='contact_user'),
 
 ]
