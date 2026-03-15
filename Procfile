@@ -1,1 +1,1 @@
-web: gunicorn lostlink.wsgi
+web: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn lostlink.wsgi
