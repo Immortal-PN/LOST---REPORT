@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -181,10 +181,10 @@ def profile(request):
 @login_required
 def inbox(request):
 
-    messages = ContactMessage.objects.filter(receiver=request.user).order_by('-created_at')
+    inbox_messages = ContactMessage.objects.filter(receiver=request.user).order_by('-created_at')
 
     return render(request,"inbox.html",{
-        "messages":messages
+        "inbox_messages": inbox_messages
     })
 
 
@@ -195,11 +195,19 @@ def inbox(request):
 @login_required
 def contact_user(request, user_id):
 
-    receiver = User.objects.get(id=user_id)
+    receiver = get_object_or_404(User, id=user_id)
+
+    if receiver == request.user:
+        messages.error(request, "You cannot send a message to yourself.")
+        return redirect("home")
 
     if request.method == "POST":
 
-        message = request.POST.get("message")
+        message = request.POST.get("message", "").strip()
+
+        if not message:
+            messages.error(request, "Message cannot be empty.")
+            return render(request, "contact.html", {"receiver": receiver})
 
         ContactMessage.objects.create(
             sender=request.user,

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="dashboard-page">
+
+<div class="dashboard-header">
+<h2>Your Activity</h2>
+<p>Track the items you have reported through LostLink.</p>
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-6">
+<div class="dashboard-panel">
+<h3>Lost Items</h3>
+
+{% if user_lost_items %}
+<div class="list-group">
+{% for item in user_lost_items %}
+<div class="list-group-item">
+<strong>{{ item.title }}</strong>
+<div class="small text-muted">{{ item.location }} • {{ item.date_lost }}</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-state">You have not reported any lost items yet.</p>
+{% endif %}
+
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="dashboard-panel">
+<h3>Found Items</h3>
+
+{% if user_found_items %}
+<div class="list-group">
+{% for item in user_found_items %}
+<div class="list-group-item">
+<strong>{{ item.title }}</strong>
+<div class="small text-muted">{{ item.location }} • {{ item.date_found }}</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-state">You have not reported any found items yet.</p>
+{% endif %}
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+{% endblock %}

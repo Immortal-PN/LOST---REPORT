@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="dashboard-page">
+
+<div class="dashboard-header">
+<h2>Inbox</h2>
+<p>Messages from people who are trying to reconnect with an item.</p>
+</div>
+
+<div class="dashboard-panel">
+
+{% if inbox_messages %}
+<div class="list-group">
+{% for message in inbox_messages %}
+<div class="list-group-item">
+<div class="d-flex justify-content-between align-items-start gap-3">
+<div>
+<strong>{{ message.sender.username }}</strong>
+<p class="mb-1">{{ message.message }}</p>
+</div>
+<span class="small text-muted">{{ message.created_at|date:"M d, Y H:i" }}</span>
+</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<p class="empty-state">No messages yet.</p>
+{% endif %}
+
+</div>
+
+</section>
+
+{% endblock %}

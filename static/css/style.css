@@ -272,3 +272,59 @@ margin-top:20px;
 .submit-btn:hover{
 background:#222;
 }
+
+.dashboard-page{
+padding-bottom:40px;
+}
+
+.dashboard-header{
+margin-bottom:24px;
+}
+
+.dashboard-panel{
+background:white;
+padding:24px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.empty-state{
+margin:0;
+color:#666;
+}
+
+.navbar .btn-link{
+color:rgba(255,255,255,.55);
+text-decoration:none;
+}
+
+.navbar .btn-link:hover{
+color:rgba(255,255,255,.75);
+}
+
+@media (max-width: 768px){
+.hero{
+padding:72px 24px;
+}
+
+.hero-title{
+font-size:42px;
+}
+
+.hero-search,
+.hero-buttons,
+.form-row{
+flex-direction:column;
+}
+
+.search-input,
+.hero-btn-primary,
+.hero-btn-secondary{
+width:100%;
+}
+
+.form-card{
+width:100%;
+padding:24px;
+}
+}

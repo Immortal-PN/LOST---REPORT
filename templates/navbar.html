@@ -34,9 +34,30 @@
 <a class="nav-link" href="/report-found/">Report Found</a>
 </li>
 
+{% if user.is_authenticated %}
+<li class="nav-item">
+<a class="nav-link" href="/profile/">Profile</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="/inbox/">Inbox</a>
+</li>
+
+<li class="nav-item">
+<form method="post" action="{% url 'logout' %}" class="d-inline">
+{% csrf_token %}
+<button type="submit" class="nav-link btn btn-link p-0">Logout</button>
+</form>
+</li>
+{% else %}
+<li class="nav-item">
+<a class="nav-link" href="{% url 'login' %}">Login</a>
+</li>
+
 <li class="nav-item">
 <a class="nav-link" href="/register/">Register</a>
 </li>
+{% endif %}
 
 </ul>
 
