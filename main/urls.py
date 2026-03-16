@@ -10,6 +10,8 @@ urlpatterns = [
     # ITEMS
     path('lost/', views.lost_items, name='lost_items'),
     path('found/', views.found_items, name='found_items'),
+    path('lost/<int:item_id>/delete/', views.delete_lost_item, name='delete_lost_item'),
+    path('found/<int:item_id>/delete/', views.delete_found_item, name='delete_found_item'),
 
     # REPORT
     path('report-lost/', views.report_lost, name='report_lost'),

@@ -18,9 +18,15 @@
 {% if user_lost_items %}
 <div class="list-group">
 {% for item in user_lost_items %}
-<div class="list-group-item">
+<div class="list-group-item profile-item-row">
+<div>
 <strong>{{ item.title }}</strong>
 <div class="small text-muted">{{ item.location }} • {{ item.date_lost }}</div>
+</div>
+<form method="post" action="{% url 'delete_lost_item' item.id %}">
+{% csrf_token %}
+<button type="submit" class="btn profile-delete-btn" onclick="return confirm('Delete this lost item?');">Delete</button>
+</form>
 </div>
 {% endfor %}
 </div>
@@ -38,9 +44,15 @@
 {% if user_found_items %}
 <div class="list-group">
 {% for item in user_found_items %}
-<div class="list-group-item">
+<div class="list-group-item profile-item-row">
+<div>
 <strong>{{ item.title }}</strong>
 <div class="small text-muted">{{ item.location }} • {{ item.date_found }}</div>
+</div>
+<form method="post" action="{% url 'delete_found_item' item.id %}">
+{% csrf_token %}
+<button type="submit" class="btn profile-delete-btn" onclick="return confirm('Delete this found item?');">Delete</button>
+</form>
 </div>
 {% endfor %}
 </div>

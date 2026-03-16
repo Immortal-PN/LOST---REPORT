@@ -33,6 +33,22 @@ class CorePageTests(TestCase):
             location="Cafeteria",
             date_found="2026-03-11",
         )
+        self.other_lost_item = LostItem.objects.create(
+            user=self.user,
+            title="Lost Phone",
+            description="Blue phone",
+            category="electronics",
+            location="Bus Stand",
+            date_lost="2026-03-12",
+        )
+        self.other_found_item = FoundItem.objects.create(
+            user=self.user,
+            title="Found Bag",
+            description="Grey backpack",
+            category="other",
+            location="Station Road",
+            date_found="2026-03-13",
+        )
 
     def test_home_page_renders(self):
         response = self.client.get(reverse("home"))
@@ -88,3 +104,38 @@ class CorePageTests(TestCase):
 
         self.assertRedirects(response, reverse("home"))
         self.assertEqual(ContactMessage.objects.count(), 1)
+
+    def test_profile_can_delete_own_lost_item(self):
+        self.client.login(username="member", password="password123")
+
+        response = self.client.post(
+            reverse("delete_lost_item", args=[self.other_lost_item.id]),
+        )
+
+        self.assertRedirects(response, reverse("profile"))
+        self.assertFalse(LostItem.objects.filter(id=self.other_lost_item.id).exists())
+
+    def test_profile_cannot_delete_other_users_found_item(self):
+        owner_found_item = FoundItem.objects.filter(user=self.owner).first()
+        self.client.login(username="member", password="password123")
+
+        response = self.client.post(
+            reverse("delete_found_item", args=[owner_found_item.id]),
+        )
+
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue(FoundItem.objects.filter(id=owner_found_item.id).exists())
+
+    def test_lost_page_shows_recent_found_items_section(self):
+        response = self.client.get(reverse("lost_items"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Recently Found Items")
+        self.assertContains(response, self.other_found_item.title)
+
+    def test_found_page_shows_recent_lost_items_section(self):
+        response = self.client.get(reverse("found_items"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Recently Lost Items")
+        self.assertContains(response, self.other_lost_item.title)

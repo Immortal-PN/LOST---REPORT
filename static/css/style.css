@@ -201,6 +201,10 @@ color:#64748b;
 margin:0;
 }
 
+.related-section{
+margin-top:44px;
+}
+
 .listing-card{
 border-radius:18px;
 }
@@ -408,6 +412,28 @@ border-radius:12px;
 box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
+.profile-item-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+}
+
+.profile-delete-btn{
+border:1px solid rgba(220,38,38,0.18);
+background:#fff5f5;
+color:#b91c1c;
+border-radius:999px;
+padding:8px 14px;
+font-weight:700;
+white-space:nowrap;
+}
+
+.profile-delete-btn:hover{
+background:#fee2e2;
+color:#991b1b;
+}
+
 .empty-state{
 margin:0;
 color:#666;
@@ -467,5 +493,10 @@ text-align:left;
 .nav-cta{
 margin-left:0;
 width:100%;
+}
+
+.profile-item-row{
+align-items:flex-start;
+flex-direction:column;
 }
 }

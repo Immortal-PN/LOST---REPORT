@@ -55,8 +55,12 @@ def home(request):
 def lost_items(request):
 
     items = LostItem.objects.all().order_by("-created_at")
+    related_found_items = FoundItem.objects.all().order_by("-created_at")[:4]
 
-    return render(request,"lost_items.html",{"items":items})
+    return render(request,"lost_items.html",{
+        "items": items,
+        "related_found_items": related_found_items,
+    })
 
 
 
@@ -65,8 +69,12 @@ def lost_items(request):
 def found_items(request):
 
     items = FoundItem.objects.all().order_by('-created_at')
+    related_lost_items = LostItem.objects.all().order_by("-created_at")[:4]
 
-    return render(request, 'found_items.html', {'items': items})
+    return render(request, 'found_items.html', {
+        'items': items,
+        'related_lost_items': related_lost_items,
+    })
 
 
 
@@ -166,8 +174,8 @@ def register(request):
 @login_required
 def profile(request):
 
-    user_lost_items = LostItem.objects.filter(user=request.user)
-    user_found_items = FoundItem.objects.filter(user=request.user)
+    user_lost_items = LostItem.objects.filter(user=request.user).order_by("-created_at")
+    user_found_items = FoundItem.objects.filter(user=request.user).order_by("-created_at")
 
     return render(request,"profile.html",{
         "user_lost_items":user_lost_items,
@@ -227,3 +235,27 @@ def contact_user(request, user_id):
         return redirect("home")
 
     return render(request,"contact.html",{"receiver":receiver})
+
+
+@login_required
+def delete_lost_item(request, item_id):
+
+    item = get_object_or_404(LostItem, id=item_id, user=request.user)
+
+    if request.method == "POST":
+        item.delete()
+        messages.success(request, "Lost item deleted successfully.")
+
+    return redirect("profile")
+
+
+@login_required
+def delete_found_item(request, item_id):
+
+    item = get_object_or_404(FoundItem, id=item_id, user=request.user)
+
+    if request.method == "POST":
+        item.delete()
+        messages.success(request, "Found item deleted successfully.")
+
+    return redirect("profile")
