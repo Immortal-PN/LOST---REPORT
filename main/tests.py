@@ -139,3 +139,36 @@ class CorePageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Recently Lost Items")
         self.assertContains(response, self.other_lost_item.title)
+
+    def test_report_found_prefills_when_matching_lost_item(self):
+        self.client.login(username="member", password="password123")
+        lost_item = LostItem.objects.filter(user=self.owner).first()
+
+        response = self.client.get(
+            reverse("report_found") + f"?lost_item={lost_item.id}"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Selected lost item")
+        self.assertContains(response, lost_item.title)
+
+    def test_report_found_can_create_match_from_lost_item(self):
+        self.client.login(username="member", password="password123")
+        lost_item = LostItem.objects.filter(user=self.owner).first()
+
+        response = self.client.post(
+            reverse("report_found"),
+            {
+                "lost_item_id": lost_item.id,
+                "location": "Platform 2",
+                "date_found": "2026-03-15",
+                "found_time": "10:30",
+                "handover_location": "Station help desk",
+            },
+        )
+
+        self.assertRedirects(response, reverse("found_items"))
+        matched_found_item = FoundItem.objects.exclude(matched_lost_item=None).latest("id")
+        self.assertEqual(matched_found_item.matched_lost_item, lost_item)
+        self.assertEqual(matched_found_item.title, lost_item.title)
+        self.assertEqual(matched_found_item.handover_location, "Station help desk")

@@ -8,10 +8,60 @@
 
 <h2 class="form-title">Report Found Item</h2>
 
+{% if selected_lost_item %}
+<div class="match-banner">
+<div>
+<p class="match-label">Selected lost item</p>
+<h3>{{ selected_lost_item.title }}</h3>
+<p>{{ selected_lost_item.description }}</p>
+<p class="match-meta">Lost at {{ selected_lost_item.location }} on {{ selected_lost_item.date_lost }}</p>
+</div>
+<a href="{% url 'report_found' %}" class="btn match-reset-btn">Switch to manual entry</a>
+</div>
+{% endif %}
+
 <form method="POST" enctype="multipart/form-data">
 
 {% csrf_token %}
 
+{% if selected_lost_item %}
+<input type="hidden" name="lost_item_id" value="{{ selected_lost_item.id }}">
+{% endif %}
+
+{% if selected_lost_item %}
+<div class="form-row">
+
+<div class="form-field">
+<label>Where did you find it exactly?</label>
+{{ form.location }}
+</div>
+
+<div class="form-field">
+<label>Date Found</label>
+{{ form.date_found }}
+</div>
+
+</div>
+
+<div class="form-row">
+
+<div class="form-field">
+<label>What time did you find it?</label>
+{{ form.found_time }}
+</div>
+
+<div class="form-field">
+<label>Where would you like to hand it over?</label>
+{{ form.handover_location }}
+</div>
+
+</div>
+
+<div class="form-field">
+<label>Image</label>
+{{ form.image }}
+</div>
+{% else %}
 <div class="form-row">
 
 <div class="form-field">
@@ -36,7 +86,7 @@
 <div class="form-row">
 
 <div class="form-field">
-<label>Location</label>
+<label>Where did you find it exactly?</label>
 {{ form.location }}
 </div>
 
@@ -47,11 +97,25 @@
 
 </div>
 
+<div class="form-row">
+
+<div class="form-field">
+<label>What time did you find it?</label>
+{{ form.found_time }}
+</div>
+
+<div class="form-field">
+<label>Where would you like to hand it over?</label>
+{{ form.handover_location }}
+</div>
+
+</div>
 
 <div class="form-field">
 <label>Image</label>
 {{ form.image }}
 </div>
+{% endif %}
 
 
 <button type="submit" class="submit-btn">

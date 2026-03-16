@@ -28,6 +28,10 @@
 
 <p class="item-location">{{ item.location }}</p>
 
+<a href="{% url 'report_found' %}?lost_item={{ item.id }}" class="btn btn-dark btn-sm item-link-btn">
+I Found This Item
+</a>
+
 </div>
 
 </div>

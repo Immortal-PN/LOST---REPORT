@@ -39,6 +39,14 @@ class FoundItem(models.Model):
 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
 
+    matched_lost_item = models.ForeignKey(
+        LostItem,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="matched_found_reports",
+    )
+
     title = models.CharField(max_length=200)
 
     description = models.TextField()
@@ -48,6 +56,10 @@ class FoundItem(models.Model):
     location = models.CharField(max_length=200)
 
     date_found = models.DateField()
+
+    found_time = models.TimeField(blank=True, null=True)
+
+    handover_location = models.CharField(max_length=200, blank=True)
 
     image = models.ImageField(upload_to='found_items/',blank=True,null=True)
 

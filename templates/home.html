@@ -110,9 +110,15 @@ Report Found
 
 <p class="item-user">User: {{ item.user.username }}</p>
 
+<div class="item-actions">
 <a href="{% url 'contact_user' item.user.id %}" class="btn btn-dark btn-sm">
 Contact
 </a>
+
+<a href="{% url 'report_found' %}?lost_item={{ item.id }}" class="btn btn-outline-dark btn-sm">
+I Found This
+</a>
+</div>
 
 </div>
 

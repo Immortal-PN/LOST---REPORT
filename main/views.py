@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.mail import send_mail
 from django.contrib import messages
+from django.utils import timezone
 
 from .models import LostItem, FoundItem, ContactMessage
 from .forms import LostItemForm, FoundItemForm
@@ -117,14 +118,30 @@ def report_lost(request):
 @login_required
 def report_found(request):
 
+    selected_lost_item = None
+    selected_lost_item_id = request.GET.get("lost_item") or request.POST.get("lost_item_id")
+
+    if selected_lost_item_id:
+        selected_lost_item = get_object_or_404(LostItem, id=selected_lost_item_id)
+
     if request.method == "POST":
 
-        form = FoundItemForm(request.POST, request.FILES)
+        post_data = request.POST.copy()
+
+        if selected_lost_item:
+            post_data["title"] = selected_lost_item.title
+            post_data["description"] = selected_lost_item.description
+            post_data["category"] = selected_lost_item.category
+            if not post_data.get("date_found"):
+                post_data["date_found"] = timezone.localdate().isoformat()
+
+        form = FoundItemForm(post_data, request.FILES)
 
         if form.is_valid():
 
             item = form.save(commit=False)
             item.user = request.user
+            item.matched_lost_item = selected_lost_item
             item.save()
 
             messages.success(request,"Found item reported successfully")
@@ -137,9 +154,20 @@ def report_found(request):
 
     else:
 
-        form = FoundItemForm()
+        initial = {}
+        if selected_lost_item:
+            initial = {
+                "title": selected_lost_item.title,
+                "description": selected_lost_item.description,
+                "category": selected_lost_item.category,
+                "date_found": timezone.localdate(),
+            }
+        form = FoundItemForm(initial=initial)
 
-    return render(request,"report_found.html",{"form":form})
+    return render(request,"report_found.html",{
+        "form": form,
+        "selected_lost_item": selected_lost_item,
+    })
 
 
 

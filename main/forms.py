@@ -44,6 +44,8 @@ class FoundItemForm(forms.ModelForm):
             "category",
             "location",
             "date_found",
+            "found_time",
+            "handover_location",
             "image",
         ]
 
@@ -60,5 +62,11 @@ class FoundItemForm(forms.ModelForm):
             "date_found": forms.DateInput(
                 attrs={"class":"form-control","type":"date"}
             ),
+
+            "found_time": forms.TimeInput(
+                attrs={"class":"form-control","type":"time"}
+            ),
+
+            "handover_location": forms.TextInput(attrs={"class":"form-control"}),
 
         }
