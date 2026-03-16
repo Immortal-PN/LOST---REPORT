@@ -1,52 +1,58 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-xl site-navbar">
 
 <div class="container">
 
-<a class="navbar-brand" href="/">LostLink</a>
+<div class="nav-shell">
 
-<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+<a class="navbar-brand brand-mark" href="{% url 'home' %}">
+<span class="brand-badge">LL</span>
+<span class="brand-copy">
+<span class="brand-title">LostLink</span>
+<span class="brand-subtitle">Lost and Found Network</span>
+</span>
+</a>
 
+<button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
-
 </button>
 
 <div class="collapse navbar-collapse" id="nav">
 
-<ul class="navbar-nav ms-auto">
+<ul class="navbar-nav nav-links ms-auto">
 
 <li class="nav-item">
-<a class="nav-link" href="/">Home</a>
+<a class="nav-link" href="{% url 'home' %}">Home</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/lost/">Lost Items</a>
+<a class="nav-link" href="{% url 'lost_items' %}">Lost Items</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/found/">Found Items</a>
+<a class="nav-link" href="{% url 'found_items' %}">Found Items</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/report-lost/">Report Lost</a>
+<a class="nav-link" href="{% url 'report_lost' %}">Report Lost</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/report-found/">Report Found</a>
+<a class="nav-link" href="{% url 'report_found' %}">Report Found</a>
 </li>
 
 {% if user.is_authenticated %}
 <li class="nav-item">
-<a class="nav-link" href="/profile/">Profile</a>
+<a class="nav-link" href="{% url 'profile' %}">Profile</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="/inbox/">Inbox</a>
+<a class="nav-link" href="{% url 'inbox' %}">Inbox</a>
 </li>
 
-<li class="nav-item">
+<li class="nav-item nav-cta">
 <form method="post" action="{% url 'logout' %}" class="d-inline">
 {% csrf_token %}
-<button type="submit" class="nav-link btn btn-link p-0">Logout</button>
+<button type="submit" class="btn nav-action-btn">Logout</button>
 </form>
 </li>
 {% else %}
@@ -54,12 +60,14 @@
 <a class="nav-link" href="{% url 'login' %}">Login</a>
 </li>
 
-<li class="nav-item">
-<a class="nav-link" href="/register/">Register</a>
+<li class="nav-item nav-cta">
+<a class="btn nav-action-btn" href="{% url 'register' %}">Register</a>
 </li>
 {% endif %}
 
 </ul>
+
+</div>
 
 </div>
 

@@ -29,11 +29,11 @@ Search
 
 <div class="hero-buttons">
 
-<a href="/report-lost/" class="btn hero-btn-primary">
+<a href="{% url 'report_lost' %}" class="btn hero-btn-primary">
 Report Lost
 </a>
 
-<a href="/report-found/" class="btn hero-btn-primary">
+<a href="{% url 'report_found' %}" class="btn hero-btn-primary">
 Report Found
 </a>
 
@@ -97,7 +97,9 @@ Report Found
 <div class="card item-card">
 
 {% if item.image %}
-<img src="{{ item.image.url }}" class="card-img-top">
+<img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22500%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eef2f7%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2364748b%22 font-size=%2232%22 font-family=%22Arial%22>Image unavailable</text></svg>';">
+{% else %}
+<div class="image-placeholder">No image uploaded</div>
 {% endif %}
 
 <div class="card-body text-center">
@@ -108,7 +110,7 @@ Report Found
 
 <p class="item-user">User: {{ item.user.username }}</p>
 
-<a href="/contact/{{ item.user.id }}/" class="btn btn-dark btn-sm">
+<a href="{% url 'contact_user' item.user.id %}" class="btn btn-dark btn-sm">
 Contact
 </a>
 
@@ -138,7 +140,9 @@ Contact
 <div class="card item-card">
 
 {% if item.image %}
-<img src="{{ item.image.url }}" class="card-img-top">
+<img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22500%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23eef2f7%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2364748b%22 font-size=%2232%22 font-family=%22Arial%22>Image unavailable</text></svg>';">
+{% else %}
+<div class="image-placeholder">No image uploaded</div>
 {% endif %}
 
 <div class="card-body text-center">
@@ -149,7 +153,7 @@ Contact
 
 <p class="item-user">User: {{ item.user.username }}</p>
 
-<a href="/contact/{{ item.user.id }}/" class="btn btn-dark btn-sm">
+<a href="{% url 'contact_user' item.user.id %}" class="btn btn-dark btn-sm">
 Contact
 </a>
 
