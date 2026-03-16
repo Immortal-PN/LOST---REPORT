@@ -11,9 +11,25 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 ALLOWED_HOSTS = [
     host.strip()
-    for host in os.environ.get("ALLOWED_HOSTS", ".up.railway.app,localhost,127.0.0.1").split(",")
+    for host in os.environ.get(
+        "ALLOWED_HOSTS",
+        "web-production-2df6b.up.railway.app,.up.railway.app,localhost,127.0.0.1",
+    ).split(",")
     if host.strip()
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get(
+        "CSRF_TRUSTED_ORIGINS",
+        "https://web-production-2df6b.up.railway.app,https://*.up.railway.app,http://localhost,http://127.0.0.1",
+    ).split(",")
+    if origin.strip()
+]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
 
 
 INSTALLED_APPS = [
